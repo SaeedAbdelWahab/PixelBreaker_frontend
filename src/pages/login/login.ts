@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AccountsProvider } from '../../providers/accounts/accounts';
+import { TabsPage } from '../tabs/tabs';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 /**
  * Generated class for the LoginPage page.
@@ -14,12 +17,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  data;
+  constructor(public navCtrl: NavController,public accountsProvider:AccountsProvider, public navParams: NavParams,public alertCtrl:AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+  }
+  login(data){
+    this.data = data;
+    this.accountsProvider.login(JSON.stringify(data.value)).subscribe(res=>{
+      this.navCtrl.push(TabsPage,{
+        email : this.data.value.username,
+        password : this.data.value.password
+      })
+
+    },
+    err => {
+      this.showAlert("Wrong username or password");
+    }
+  );
+  }
+  showAlert(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Errors',
+      subTitle: message,
+      buttons: ['OK']
+
+    });
+    alert.present();
   }
 
 }
