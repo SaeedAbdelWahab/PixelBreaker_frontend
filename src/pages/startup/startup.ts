@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LoginPage} from '../login/login';
+import { RegisterPage } from '../register/register'
+
 
 /**
  * Generated class for the StartupPage page.
@@ -20,6 +23,13 @@ export class StartupPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StartupPage');
+  }
+
+  goToSignup(){
+    this.navCtrl.push(RegisterPage);
+  }
+  goToSignIn(){
+    this.navCtrl.push(LoginPage);
   }
 
 }
