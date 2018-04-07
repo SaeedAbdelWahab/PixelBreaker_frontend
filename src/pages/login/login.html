@@ -14,5 +14,15 @@
 
 
 <ion-content padding>
-
+  <form (ngSubmit)="login(f)" #f="ngForm">
+    <ion-item>
+      <ion-label  color="primary" floating>Username</ion-label>
+      <ion-input name = "username" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Password</ion-label>
+      <ion-input type="password" name = "password" ngModel ></ion-input>
+    </ion-item>
+    <button style="margin-top: 40px;" type = "submit" ion-button full color="light">login</button>
+  </form>
 </ion-content>
