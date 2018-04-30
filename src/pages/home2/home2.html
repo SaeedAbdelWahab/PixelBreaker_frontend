@@ -22,6 +22,18 @@
       </ion-item>
     </ion-list>  
     <button (click)="get_images()" ion-button full color="light">Get Images</button>
+    <ion-card  *ngFor ="let user of data">
+        <img src="http://192.168.1.3:8000{{user.image}}"/>
+        <ion-card-content>
+          
+          <h3>
+            Reading : {{user.reading}}
+          </h3>
+          <h3>
+            Date: {{user.date}}
+          </h3>
+        </ion-card-content>
+      </ion-card>
     <button (click)="logout()" ion-button full color="light">logout</button>
 
 </ion-content>

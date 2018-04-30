@@ -15,8 +15,10 @@ export class HomePage {
   imgUrl;
   imageName;
   number;
+  imgResult;
   show = false;
   show_reading = false;
+  show_res=false;
   reading ;
   constructor(public navCtrl: NavController,public accountsProvider:AccountsProvider,public alertCtrl:AlertController,public camera: Camera,public http:HttpClient) {
 
@@ -55,6 +57,8 @@ export class HomePage {
       formData.append('number',this.number);
       this.http.post("http://192.168.1.3:8000/api-imageUpload", formData, {withCredentials: true}).subscribe((res:any) => { 
       this.reading = res.reading; 
+      this.imgResult = "http://192.168.1.3:8000/media/"+res.path+"_processed";
+      this.show_res=true;
       this.show_reading=true;     
       var message = "The image was successfully uploaded!";
       this.showAlert(message);   

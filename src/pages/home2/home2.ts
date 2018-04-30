@@ -18,6 +18,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 })
 export class Home2Page {
   number;
+  data = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountsProvider:AccountsProvider,public alertCtrl:AlertController) {
   }
 
@@ -25,7 +26,8 @@ export class Home2Page {
     console.log('ionViewDidLoad Home2Page');
   }
   get_images(){
-    this.accountsProvider.get_images(this.number).subscribe(res=>{
+    this.accountsProvider.get_images(this.number).subscribe((res:any)=>{
+      this.data=res;
       console.log(res);
   })}
   logout(){
