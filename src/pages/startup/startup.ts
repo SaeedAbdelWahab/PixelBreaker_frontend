@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage} from '../login/login';
-import { RegisterPage } from '../register/register'
+import { RegisterPage } from '../register/register';
+import { TabsPage} from '../tabs/tabs';
+import { AccountsProvider } from '../../providers/accounts/accounts';
+import { Home2Page } from '../home2/home2';
+
 
 
 /**
@@ -18,7 +22,9 @@ import { RegisterPage } from '../register/register'
 })
 export class StartupPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public accountsProvider:AccountsProvider) {
+    this.test();
+    
   }
 
   ionViewDidLoad() {
@@ -31,5 +37,23 @@ export class StartupPage {
   goToSignIn(){
     this.navCtrl.push(LoginPage);
   }
+  test(){
+    
+    this.accountsProvider.test().subscribe((res:any)=>{
+      if (res.is_staff){
+        this.navCtrl.push(TabsPage,{
+        })
+      }
+      else {
+        this.navCtrl.push(Home2Page)
+      }
+
+    },
+    err => {
+      console.log("you are not signed in");
+    }
+  );
+  }
+  
 
 }

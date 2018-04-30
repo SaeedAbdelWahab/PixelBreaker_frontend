@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Camera } from '@ionic-native/camera';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -11,6 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StartupPage } from '../pages/startup/startup';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import { Home2Page } from '../pages/home2/home2';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,7 +27,8 @@ import { AccountsProvider } from '../providers/accounts/accounts';
     TabsPage,
     StartupPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    Home2Page
   ],
   imports: [
     BrowserModule,
@@ -41,13 +44,15 @@ import { AccountsProvider } from '../providers/accounts/accounts';
     TabsPage,
     StartupPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    Home2Page
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AccountsProvider
+    AccountsProvider,
+    Camera
   ]
 })
 export class AppModule {}

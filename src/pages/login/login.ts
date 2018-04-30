@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AccountsProvider } from '../../providers/accounts/accounts';
 import { TabsPage } from '../tabs/tabs';
+import { Home2Page } from '../home2/home2';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 /**
@@ -26,11 +27,17 @@ export class LoginPage {
   }
   login(data){
     this.data = data;
-    this.accountsProvider.login(JSON.stringify(data.value)).subscribe(res=>{
-      this.navCtrl.push(TabsPage,{
-        email : this.data.value.username,
-        password : this.data.value.password
-      })
+    this.accountsProvider.login(JSON.stringify(data.value)).subscribe((res:any)=>{
+      if (res.staff){
+        this.navCtrl.push(TabsPage,{
+          email : this.data.value.username,
+          password : this.data.value.password
+        })
+      }
+      else {
+        this.navCtrl.push(Home2Page);
+      }
+      
 
     },
     err => {
