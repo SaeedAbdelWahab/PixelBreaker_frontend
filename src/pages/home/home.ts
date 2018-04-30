@@ -16,6 +16,7 @@ export class HomePage {
   imageName;
   number;
   show = false;
+  reading ;
   constructor(public navCtrl: NavController,public accountsProvider:AccountsProvider,public alertCtrl:AlertController,public camera: Camera,public http:HttpClient) {
 
   }
@@ -30,7 +31,7 @@ export class HomePage {
      this.imageName = imageData;
      this.show=true;
      this.imgUrl = 'data:image/jpeg;base64,' + imageData;
-    });
+    },(err)=>{});
   }
   choosePhoto(){
     const options: CameraOptions = {
@@ -44,14 +45,15 @@ export class HomePage {
     this.imageName = imageData;
     this.show=true;
     this.imgUrl = 'data:image/jpeg;base64,' + imageData;
-    });
+    },(err)=>{});
   }
   transferData(){
     let formData = new FormData();
     if (this.number && this.imageName){
       formData.append('image', this.imageName); 
       formData.append('number',this.number);
-      this.http.post("http://192.168.1.3:8000/api-imageUpload", formData, {withCredentials: true}).subscribe((res:any) => {     
+      this.http.post("http://192.168.1.3:8000/api-imageUpload", formData, {withCredentials: true}).subscribe((res:any) => { 
+      this.reading = res.reading;      
       var message = "The image was successfully uploaded!";
       this.showAlert(message);   
       }, (err) => {
