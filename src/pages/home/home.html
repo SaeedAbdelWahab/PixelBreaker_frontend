@@ -6,7 +6,20 @@
 
 <ion-content padding>
   
-  <button (click)="pic()" ion-button full color="light">Take photo</button>
-  <button (click)="logout()" ion-button full color="light">logout</button>
-  <p><img src="{{url}}"></p>
+  
+    <ion-list>
+
+        <ion-item>
+          <ion-label floating >Meter Number</ion-label>
+          <ion-input [(ngModel)]="number"  ></ion-input>
+        </ion-item>
+        <p><img *ngIf='show' src="{{imgUrl}}"></p>
+      </ion-list>
+      <button (click)="pic()" ion-button full >Take photo</button>
+      <button (click)="choosePhoto()" ion-button full >Load photo from gallery</button>
+      <button  ion-button block type="submit"  >Submit</button>
+      
+    
+    <button (click)="logout()" ion-button full >logout</button>
+  
 </ion-content>

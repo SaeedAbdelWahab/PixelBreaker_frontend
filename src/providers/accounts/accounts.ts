@@ -14,10 +14,10 @@ export class AccountsProvider {
     console.log('Hello AccountsProvider Provider');
   }
   headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
-  register_url = "http://192.168.1.5:8000/register";
-  login_url = "http://192.168.1.5:8000/login";
-  test_url = "http://192.168.1.5:8000/test";
-  logout_url = "http://192.168.1.5:8000/logout";
+  register_url = "http://192.168.1.3:8000/register";
+  login_url = "http://192.168.1.3:8000/login";
+  test_url = "http://192.168.1.3:8000/test";
+  logout_url = "http://192.168.1.3:8000/logout";
   register(data){
     return this.http.post(this.register_url,data,{headers:this.headers});
   }

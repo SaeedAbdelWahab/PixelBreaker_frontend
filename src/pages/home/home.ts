@@ -14,7 +14,8 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 export class HomePage {
   imgUrl;
   imageName;
-  url;
+  number;
+  show = false;
   constructor(public navCtrl: NavController,public accountsProvider:AccountsProvider,public alertCtrl:AlertController,public camera: Camera,public http:HttpClient) {
 
   }
@@ -28,24 +29,40 @@ export class HomePage {
     
     this.camera.getPicture(options).then((imageData) => {
      this.imageName = imageData;
+     this.show=true;
      this.imgUrl = 'data:image/jpeg;base64,' + imageData;
-     this.transferData()
+     
 
     }, (err) => {
      // Handle error
     });
   }
+  choosePhoto(){
+    const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+    this.camera.getPicture(options).then((imageData) => {
+    // imageData is either a base64 encoded string or a file URI
+    // If it's base64:
+    this.imageName = imageData;
+    this.show=true;
+    this.imgUrl = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+    // Handle error
+    });
+  }
   transferData(){
     let formData = new FormData();
-    // formData.append('category', 1);
-    // formData.append('status', 'Y');
     formData.append('image', this.imageName); 
-    formData.append('number','5');
-    this.http.post("http://192.168.1.5:8000/api-imageUpload", formData, {withCredentials: true}).subscribe((res:any) => {
+    formData.append('number',this.number);
+    this.http.post("http://192.168.1.3:8000/api-imageUpload", formData, {withCredentials: true}).subscribe((res:any) => {
         
-        this.url = res.path
         
-        var message = "The image was successfully uploaded!"+this.url;
+        var message = "The image was successfully uploaded!";
         this.showAlert(message);
       
       
@@ -68,7 +85,7 @@ export class HomePage {
   }
   showAlert(message) {
     let alert = this.alertCtrl.create({
-      title: 'Error!',
+      title: 'Message',
       subTitle: message,
       buttons: ['OK']
 
