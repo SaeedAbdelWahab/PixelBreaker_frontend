@@ -17,13 +17,17 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
   templateUrl: 'home2.html',
 })
 export class Home2Page {
-
+  number;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountsProvider:AccountsProvider,public alertCtrl:AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Home2Page');
   }
+  get_images(){
+    this.accountsProvider.get_images(this.number).subscribe(res=>{
+      console.log(res);
+  })}
   logout(){
     this.accountsProvider.logout().subscribe(res=>{
       this.navCtrl.popToRoot();
@@ -35,7 +39,7 @@ export class Home2Page {
   }
   showAlert(message) {
     let alert = this.alertCtrl.create({
-      title: 'Error!',
+      title: 'Message',
       subTitle: message,
       buttons: ['OK']
 

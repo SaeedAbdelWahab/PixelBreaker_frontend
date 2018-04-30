@@ -18,6 +18,7 @@ export class AccountsProvider {
   login_url = "http://192.168.1.3:8000/login";
   test_url = "http://192.168.1.3:8000/test";
   logout_url = "http://192.168.1.3:8000/logout";
+  get_images_url = "http://192.168.1.3:8000/CustomerView/";
   register(data){
     return this.http.post(this.register_url,data,{headers:this.headers});
   }
@@ -30,6 +31,10 @@ export class AccountsProvider {
   }
   logout(){
     return this.http.get(this.logout_url,{withCredentials: true,
+      headers:this.headers});
+  }
+  get_images(number){
+    return this.http.get(this.get_images_url+number+'/',{withCredentials: true,
       headers:this.headers});
   }
 
