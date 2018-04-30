@@ -6,20 +6,17 @@
 
 <ion-content padding>
   
-  
+    <p>Kindly Enter the number of the meter and take a picture</p>
     <ion-list>
-
-        <ion-item>
+      <ion-item>
           <ion-label floating >Meter Number</ion-label>
           <ion-input [(ngModel)]="number"  ></ion-input>
-        </ion-item>
-        <p><img *ngIf='show' src="{{imgUrl}}"></p>
-      </ion-list>
-      <button (click)="pic()" ion-button full >Take photo</button>
-      <button (click)="choosePhoto()" ion-button full >Load photo from gallery</button>
-      <button  ion-button block type="submit"  >Submit</button>
-      
-    
+      </ion-item>
+      <p><img *ngIf='show' src="{{imgUrl}}"></p>
+    </ion-list>
+    <button (click)="pic()" ion-button full >Take photo</button>
+    <button (click)="choosePhoto()" ion-button full >Load photo from gallery</button>
+    <button (click)="transferData()" ion-button full >Save Image</button> 
     <button (click)="logout()" ion-button full >logout</button>
   
 </ion-content>

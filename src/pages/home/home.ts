@@ -25,16 +25,11 @@ export class HomePage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
-    };
-    
+    };  
     this.camera.getPicture(options).then((imageData) => {
      this.imageName = imageData;
      this.show=true;
      this.imgUrl = 'data:image/jpeg;base64,' + imageData;
-     
-
-    }, (err) => {
-     // Handle error
     });
   }
   choosePhoto(){
@@ -46,52 +41,43 @@ export class HomePage {
     sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
     }
     this.camera.getPicture(options).then((imageData) => {
-    // imageData is either a base64 encoded string or a file URI
-    // If it's base64:
     this.imageName = imageData;
     this.show=true;
     this.imgUrl = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-    // Handle error
     });
   }
   transferData(){
     let formData = new FormData();
-    formData.append('image', this.imageName); 
-    formData.append('number',this.number);
-    this.http.post("http://192.168.1.3:8000/api-imageUpload", formData, {withCredentials: true}).subscribe((res:any) => {
-        
-        
-        var message = "The image was successfully uploaded!";
+    if (this.number && this.imageName){
+      formData.append('image', this.imageName); 
+      formData.append('number',this.number);
+      this.http.post("http://192.168.1.3:8000/api-imageUpload", formData, {withCredentials: true}).subscribe((res:any) => {     
+      var message = "The image was successfully uploaded!";
+      this.showAlert(message);   
+      }, (err) => {
+        var message = "Error in uploading file " + err.errors;
         this.showAlert(message);
-      
-      
-    }, (err) => {
-      var message = "Error in uploading file " + err.errors;
-      this.showAlert(message);
-    });
+      });
+    }
+    else {
+      this.showAlert("kindly enter the number of the meter and take a picture");
+    } 
   }
-  
-
   logout(){
     this.accountsProvider.logout().subscribe(res=>{
-      this.navCtrl.push(StartupPage);
-      
+      this.navCtrl.push(StartupPage);    
     },
-    err => {
-      this.showAlert("you are not logged in");
-    }
-  );
-  }
+      err => {
+        this.showAlert("you are not logged in");
+      }
+    );}
   showAlert(message) {
     let alert = this.alertCtrl.create({
       title: 'Message',
       subTitle: message,
       buttons: ['OK']
 
-    });
-    
+    });   
     alert.present();
   }
-
 }
